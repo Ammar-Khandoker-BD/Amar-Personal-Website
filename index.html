@@ -12,35 +12,38 @@
 </head>
 <body>
 <header class="nav">
-  <a class="brand" href="#home">AMMAR<span>.</span></a>
-  <nav id="menu">
-    <a href="#about">About</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+  <a class="brand" href="#home" aria-label="Ammar home">AMMAR<span>.</span></a>
+  <nav id="menu" aria-label="Main navigation">
+    <a class="nav-active" href="#home">Home</a>
+    <a href="#projects">Portfolio</a>
+    <a href="#contact">Contact</a>
   </nav>
-  <button class="menu-btn" aria-label="Toggle menu">☰</button>
+  <div class="nav-actions">
+    <a class="social-chip" href="https://www.linkedin.com/in/mdamberalikhandoker" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+    <a class="nav-cta" href="#contact">Contact Me <span aria-hidden="true">↗</span></a>
+    <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  </div>
 </header>
 
 <main>
 <section id="home" class="hero">
   <div class="hero-copy reveal">
-    <p class="eyebrow">HR • DATA • AI • DIGITAL</p>
-    <h1>Md. Ammar Ali<br><span>Khandoker</span></h1>
-    <p class="lead">HR Professional & Digital Operations Specialist focused on HRM, ERP, inventory management, data analytics, AI tools and digital growth.</p>
+    <p class="eyebrow"><span class="eyebrow-line"></span> INTRODUCING</p>
+    <h1>Hello,<br>I'm <span class="hero-name">Ammar<br class="desktop-break"> Khandoker.</span></h1>
+    <p class="lead">HR professional and digital operations specialist connecting people, data, inventory, and AI-powered workflows. I turn everyday business processes into clear, organized, and practical systems.</p>
     <div class="cta">
-      <a class="btn primary" href="#projects">Explore My Work</a>
-      <a class="btn ghost" href="#contact">Let's Connect</a>
+      <a class="btn primary" href="#contact">Contact Me <span aria-hidden="true">↗</span></a>
+      <a class="btn ghost" href="#projects">View Portfolio <span aria-hidden="true">↓</span></a>
     </div>
-    <div class="mini-stats">
-      <div><b>HRM</b><span>People & Process</span></div>
-      <div><b>ERP</b><span>Operations</span></div>
-      <div><b>AI</b><span>Automation</span></div>
-    </div>
+    <div class="hero-meta"><span>HR & Operations</span><i></i><span>Data & Inventory</span><i></i><span>AI Automation</span></div>
   </div>
-  <div class="orb-wrap reveal">
-    <div class="orb"></div>
-    <img class="profile-photo" src="profile.jpg" alt="Portrait of Md. Ammar Ali Khandoker">
-    <div class="floating-card card-one">✦ AI + Automation</div>
-    <div class="floating-card card-two">▦ Excel • MIS • Data</div>
-    <div class="floating-card card-three">◉ HR • ERP • Inventory</div>
+  <div class="hero-visual reveal" aria-label="Portrait and skill highlights">
+    <div class="portrait-orbit" aria-hidden="true"></div>
+    <img class="profile-photo" src="profile-hero.webp" alt="Md. Ammar Ali Khandoker wearing a fedora hat, scarf, and green sweater">
+    <div class="floating-card card-one"><span class="skill-icon icon-ai">✳</span><span>AI + Automation</span></div>
+    <div class="floating-card card-two"><span class="skill-icon icon-data">▦</span><span>Excel • MIS • Data</span></div>
+    <div class="floating-card card-three"><span class="skill-icon icon-hr">◉</span><span>HR • ERP • Inventory</span></div>
+    <div class="floating-card card-four"><span class="skill-icon icon-digital">↗</span><span>Digital Growth</span></div>
   </div>
 </section>
 
