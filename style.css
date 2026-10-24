@@ -226,3 +226,16 @@ footer{align-items:center;flex-wrap:wrap;gap:15px 24px}
   .footer-socials a{padding:0!important}
   .footer-copy,.footer-tagline{line-height:1.5}
 }
+
+
+/* Clean branded social icon row in the footer */
+footer{justify-content:space-between;align-items:center;gap:16px 28px}
+.footer-socials{display:flex;align-items:center;justify-content:center;gap:10px!important;flex-wrap:wrap}
+.footer-socials .social-icon{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;padding:0!important;border:1px solid rgba(255,255,255,.14);border-radius:11px;background:rgba(255,255,255,.035);color:#c8cbd0;font-size:0;transition:transform .2s ease,color .2s ease,border-color .2s ease,background .2s ease}
+.footer-socials .social-icon svg{display:block;width:18px;height:18px;flex:none}
+.footer-socials .social-icon:hover{color:var(--green);border-color:rgba(79,226,160,.55);background:rgba(79,226,160,.08);transform:translateY(-2px)}
+@media(max-width:760px){
+ footer{align-items:center;gap:13px;flex-direction:column;text-align:center}
+ .footer-copy{order:2}
+ .footer-socials{order:1;justify-content:center;gap:10px!important}
+}
