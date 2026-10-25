@@ -75,21 +75,49 @@
   updateScrollProgress();
 
   const revealItems = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window) {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if ("IntersectionObserver" in window && !reducedMotion) {
     const observer = new IntersectionObserver(
       (entries, currentObserver) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-            currentObserver.unobserve(entry.target);
+            const item = entry.target;
+            const parent = item.parentElement;
+            // Stagger sibling cards as they enter the viewport, with a capped delay.
+            if (parent) {
+              const siblings = Array.from(parent.children).filter((child) => child.classList.contains("reveal"));
+              const siblingIndex = Math.max(0, siblings.indexOf(item));
+              item.style.setProperty("--reveal-delay", Math.min(siblingIndex, 6) * 65 + "ms");
+            }
+            item.classList.add("show");
+            currentObserver.unobserve(item);
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -24px 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -35px 0px" }
     );
     revealItems.forEach((item) => observer.observe(item));
   } else {
-    // The page remains fully readable in browsers without IntersectionObserver.
+    // Keep every section visible when motion is reduced or IntersectionObserver is unavailable.
     revealItems.forEach((item) => item.classList.add("show"));
+  }
+
+  // Highlight the current navigation section while the visitor scrolls.
+  const navLinks = Array.from(document.querySelectorAll('#menu a[href^="#"]'));
+  const observedSections = Array.from(document.querySelectorAll("main section[id]"));
+  if ("IntersectionObserver" in window && navLinks.length && observedSections.length) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => {
+          const active = link.getAttribute("href") === "#" + entry.target.id;
+          link.classList.toggle("nav-active", active);
+          if (active) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        });
+      });
+    }, { rootMargin: "-28% 0px -58% 0px", threshold: 0 });
+    observedSections.forEach((section) => sectionObserver.observe(section));
   }
 })();
