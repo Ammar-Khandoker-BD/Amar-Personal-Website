@@ -223,3 +223,117 @@ footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: s
  .certificate-source-links{align-items:stretch;flex-direction:column}
  .certificate-source-links .cert-source-link{width:fit-content;max-width:100%}
 }
+
+
+/* Motion graphics: lightweight, responsive, and reduced-motion aware */
+:root { --scroll-progress: 0%; }
+.scroll-progress {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+  background: rgba(255,255,255,.045);
+}
+.scroll-progress span {
+  display: block;
+  width: var(--scroll-progress);
+  height: 100%;
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--green), #b4ffd9, var(--yellow));
+  box-shadow: 0 0 12px rgba(79,226,160,.48);
+  transition: width .08s linear;
+}
+@keyframes orbitFloat {
+  0%,100% { transform: translateY(-48%) scale(1); box-shadow: 0 22px 70px rgba(18,208,129,.07); }
+  50% { transform: translateY(calc(-48% - 8px)) scale(1.012); box-shadow: 0 28px 78px rgba(18,208,129,.13); }
+}
+@keyframes orbitFloatMobile {
+  0%,100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.01); }
+}
+@keyframes cardDriftOne { 0%,100% { translate: 0 0; } 50% { translate: 0 -7px; } }
+@keyframes cardDriftTwo { 0%,100% { translate: 0 0; } 50% { translate: 0 6px; } }
+@keyframes cardDriftThree { 0%,100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+@keyframes cardDriftFour { 0%,100% { translate: 0 0; } 50% { translate: 0 7px; } }
+@keyframes accentPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(79,226,160,0); }
+  50% { box-shadow: 0 0 34px 2px rgba(79,226,160,.12); }
+}
+@keyframes underlineDraw {
+  from { transform: scaleX(.15); opacity: .45; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+@keyframes contentLift {
+  from { opacity: 0; translate: 0 12px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes certificateLift {
+  from { opacity: .65; translate: 0 8px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes buttonSheen {
+  0% { transform: translateX(-125%) skewX(-18deg); }
+  100% { transform: translateX(250%) skewX(-18deg); }
+}
+.portrait-orbit { animation: orbitFloat 7.2s ease-in-out infinite; }
+.hero-visual.show .portrait-orbit { animation: orbitFloat 7.2s ease-in-out infinite, accentPulse 7.2s ease-in-out infinite; }
+.hero-visual.show .card-one { animation: cardDriftOne 5.6s ease-in-out infinite; }
+.hero-visual.show .card-two { animation: cardDriftTwo 6.2s ease-in-out infinite .35s; }
+.hero-visual.show .card-three { animation: cardDriftThree 5.9s ease-in-out infinite .7s; }
+.hero-visual.show .card-four { animation: cardDriftFour 6.5s ease-in-out infinite .25s; }
+.js .hero-copy.show .eyebrow-line { transform-origin: left center; animation: underlineDraw .65s .08s ease-out both; }
+.js .hero-copy.show h1 { animation: contentLift .65s .12s ease-out both; }
+.js .hero-copy.show .lead { animation: contentLift .65s .22s ease-out both; }
+.js .hero-copy.show .cta { animation: contentLift .65s .32s ease-out both; }
+.js .hero-copy.show .hero-meta { animation: contentLift .65s .42s ease-out both; }
+.js .certificate-card.show { animation: certificateLift .45s ease-out both; }
+.btn, .nav-cta, .project, .certificate-card, .footer-socials .social-icon { will-change: auto; }
+.btn.primary, .nav-cta { position: relative; isolation: isolate; overflow: hidden; }
+.btn.primary::after, .nav-cta::after {
+  position: absolute;
+  z-index: -1;
+  top: -40%;
+  bottom: -40%;
+  left: 0;
+  width: 34%;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  transform: translateX(-150%) skewX(-18deg);
+  pointer-events: none;
+}
+.btn.primary:hover::after, .nav-cta:hover::after { animation: buttonSheen .8s ease-out; }
+.project { position: relative; overflow: hidden; }
+.project::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: "";
+  pointer-events: none;
+  background: radial-gradient(circle at 10% 0%, rgba(79,226,160,.10), transparent 46%);
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+.project:hover::after { opacity: 1; }
+.certificate-card:hover { box-shadow: 0 14px 34px rgba(0,0,0,.14); }
+@media (max-width: 760px) {
+  .portrait-orbit, .hero-visual.show .portrait-orbit { animation: orbitFloatMobile 7.2s ease-in-out infinite; }
+  .hero-visual.show .card-one, .hero-visual.show .card-two,
+  .hero-visual.show .card-three, .hero-visual.show .card-four { animation: none; }
+  .btn.primary::after, .nav-cta::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress span { transition: none; }
+  .portrait-orbit, .hero-visual.show .portrait-orbit,
+  .hero-visual.show .card-one, .hero-visual.show .card-two,
+  .hero-visual.show .card-three, .hero-visual.show .card-four,
+  .js .hero-copy.show .eyebrow-line, .js .hero-copy.show h1,
+  .js .hero-copy.show .lead, .js .hero-copy.show .cta,
+  .js .hero-copy.show .hero-meta, .js .certificate-card.show {
+    animation: none !important;
+  }
+  .btn.primary:hover::after, .nav-cta:hover::after { animation: none !important; }
+  .project::after { transition: none; }
+}
