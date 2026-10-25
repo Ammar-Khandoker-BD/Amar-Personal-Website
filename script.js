@@ -1,6 +1,7 @@
 (() => {
   "use strict";
 
+  // Enable reveal animation only after this script has loaded successfully.
   const root = document.documentElement;
   root.classList.remove("no-js");
   root.classList.add("js");
