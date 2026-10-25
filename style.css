@@ -448,3 +448,49 @@ footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: s
     animation: none !important;
   }
 }
+
+
+/* Unify certificate section accents to the site green */
+.certificates {
+  --certificate-accent: #4fe2a0;
+  --certificate-accent-soft: rgba(79,226,160,.20);
+  --certificate-accent-hover: rgba(79,226,160,.58);
+}
+.certificate-card {
+  border-color: var(--certificate-accent-soft);
+}
+.certificate-card:hover {
+  border-color: var(--certificate-accent-hover);
+  background: linear-gradient(145deg,rgba(79,226,160,.065),rgba(255,255,255,.012));
+  box-shadow: 0 14px 34px rgba(0,0,0,.14), 0 0 20px rgba(79,226,160,.045);
+}
+.certificate-category {
+  border-color: var(--certificate-accent-soft);
+  background: rgba(79,226,160,.055);
+  color: var(--certificate-accent);
+}
+.certificate-meta,
+.certificate-card .certificate-meta time {
+  color: var(--certificate-accent);
+}
+.certificate-meta time::before {
+  border-color: var(--certificate-accent);
+}
+.certificate-detail strong,
+.certificate-skills strong {
+  color: var(--certificate-accent);
+}
+.certificate-number {
+  color: rgba(79,226,160,.62);
+}
+.cert-source-link {
+  border-color: var(--certificate-accent-soft);
+  color: var(--certificate-accent);
+}
+.cert-source-link:hover {
+  border-color: var(--certificate-accent-hover);
+  background: rgba(79,226,160,.08);
+}
+.certificate-card .certificate-meta span {
+  color: #aeb8b3;
+}
