@@ -121,17 +121,29 @@
     observedSections.forEach((section) => sectionObserver.observe(section));
   }
 
-  // Mouse/pen halo: follow the pointer and expand on interactive elements.
+  // Cursor halo: use any connected fine pointer, including hybrid touch laptops.
   const cursorAura = document.querySelector(".cursor-aura");
-  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  const motionAllowed = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const anyFinePointer = window.matchMedia("(any-hover: hover) and (any-pointer: fine)").matches;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const interactiveSelector = "a, button, .project, .certificate-card, .skill-card, .job, .featured-credential, .contact-box";
 
-  if (cursorAura && finePointer && motionAllowed) {
-    document.addEventListener("pointermove", (event) => {
-      if (event.pointerType !== "mouse" && event.pointerType !== "pen") return;
-      cursorAura.style.transform = `translate3d(${event.clientX}px,${event.clientY}px,0) translate(-50%,-50%)`;
+  if (cursorAura && anyFinePointer) {
+    root.classList.add("has-pointer-aura");
+
+    const moveAura = (x, y) => {
+      cursorAura.style.transform = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
       cursorAura.classList.add("is-visible");
+    };
+
+    // Pointer Events are preferred; mousemove is a fallback for older browsers.
+    document.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "mouse" || event.pointerType === "pen") {
+        moveAura(event.clientX, event.clientY);
+      }
+    }, { passive: true });
+
+    document.addEventListener("mousemove", (event) => {
+      moveAura(event.clientX, event.clientY);
     }, { passive: true });
 
     document.addEventListener("pointerover", (event) => {
@@ -140,31 +152,44 @@
       cursorAura.classList.toggle("is-active", Boolean(target));
     }, { passive: true });
 
-    document.addEventListener("pointerout", (event) => {
-      if (event.relatedTarget == null) cursorAura.classList.remove("is-visible", "is-active");
+    document.addEventListener("mouseover", (event) => {
+      const target = event.target instanceof Element ? event.target.closest(interactiveSelector) : null;
+      cursorAura.classList.toggle("is-active", Boolean(target));
     }, { passive: true });
 
+    document.addEventListener("mouseleave", () => cursorAura.classList.remove("is-visible", "is-active"));
     window.addEventListener("blur", () => cursorAura.classList.remove("is-visible", "is-active"));
   }
 
-  // Touch/pen taps get a small ripple and short visual feedback without blocking clicks.
-  document.addEventListener("pointerdown", (event) => {
-    if (event.pointerType !== "touch" && event.pointerType !== "pen") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // Touch feedback always changes the pressed target; ripple is omitted for reduced-motion users.
+  const addTouchFeedback = (x, y, targetElement) => {
+    const target = targetElement instanceof Element ? targetElement.closest(interactiveSelector) : null;
+    if (target) {
+      target.classList.add("touch-feedback");
+      window.setTimeout(() => target.classList.remove("touch-feedback"), 260);
+    }
 
+    if (prefersReducedMotion || !Number.isFinite(x) || !Number.isFinite(y)) return;
     const ripple = document.createElement("span");
     ripple.className = "touch-ripple";
     ripple.setAttribute("aria-hidden", "true");
-    ripple.style.left = event.clientX + "px";
-    ripple.style.top = event.clientY + "px";
+    ripple.style.left = x + "px";
+    ripple.style.top = y + "px";
     document.body.appendChild(ripple);
     ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+    window.setTimeout(() => ripple.remove(), 700);
+  };
 
-    const target = event.target instanceof Element ? event.target.closest(interactiveSelector) : null;
-    if (target) {
-      target.classList.add("touch-feedback");
-      window.setTimeout(() => target.classList.remove("touch-feedback"), 190);
-    }
-  }, { passive: true });
-
+  if ("PointerEvent" in window) {
+    document.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch" || event.pointerType === "pen") {
+        addTouchFeedback(event.clientX, event.clientY, event.target);
+      }
+    }, { passive: true });
+  } else {
+    document.addEventListener("touchstart", (event) => {
+      const touch = event.changedTouches && event.changedTouches[0];
+      if (touch) addTouchFeedback(touch.clientX, touch.clientY, event.target);
+    }, { passive: true });
+  }
 })();
