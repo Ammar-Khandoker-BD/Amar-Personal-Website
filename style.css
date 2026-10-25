@@ -494,3 +494,84 @@ footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: s
 .certificate-card .certificate-meta span {
   color: #aeb8b3;
 }
+
+
+/* Pointer-follow halo and tactile tap feedback */
+.cursor-aura {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(79,226,160,.78);
+  border-radius: 50%;
+  background: rgba(79,226,160,.035);
+  box-shadow: 0 0 20px rgba(79,226,160,.10), inset 0 0 12px rgba(79,226,160,.06);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-100px,-100px,0) translate(-50%,-50%);
+  transition: width .2s ease, height .2s ease, opacity .18s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  will-change: transform;
+}
+.cursor-aura span {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px rgba(79,226,160,.65);
+}
+.cursor-aura.is-visible { opacity: 1; }
+.cursor-aura.is-active {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(255,191,35,.95);
+  background: rgba(79,226,160,.07);
+  box-shadow: 0 0 28px rgba(79,226,160,.17), 0 0 11px rgba(255,191,35,.08), inset 0 0 16px rgba(79,226,160,.08);
+}
+.cursor-aura.is-active span {
+  width: 6px;
+  height: 6px;
+  background: var(--yellow);
+  box-shadow: 0 0 12px rgba(255,191,35,.8);
+}
+@keyframes touchRipple {
+  0% { opacity: .85; transform: translate(-50%,-50%) scale(.22); }
+  65% { opacity: .55; }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(1.15); }
+}
+.touch-ripple {
+  position: fixed;
+  z-index: 9998;
+  width: 58px;
+  height: 58px;
+  border: 1.5px solid rgba(79,226,160,.92);
+  border-radius: 50%;
+  background: radial-gradient(circle,rgba(79,226,160,.18) 0%,rgba(79,226,160,.05) 48%,transparent 72%);
+  box-shadow: 0 0 24px rgba(79,226,160,.19), inset 0 0 16px rgba(79,226,160,.12);
+  pointer-events: none;
+  animation: touchRipple .56s cubic-bezier(.16,.75,.3,1) forwards;
+}
+.touch-feedback {
+  filter: brightness(1.11);
+  box-shadow: 0 0 0 1px rgba(79,226,160,.32), 0 0 24px rgba(79,226,160,.09);
+  transition: filter .14s ease, box-shadow .14s ease;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .cursor-aura { display: flex; }
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-aura { display: none !important; }
+  a, button, .project, .certificate-card, .skill-card, .job, .featured-credential {
+    -webkit-tap-highlight-color: rgba(79,226,160,.12);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-aura { display: none !important; transition: none !important; }
+  .touch-ripple { animation: none !important; display: none !important; }
+  .touch-feedback { transition: none !important; }
+}
