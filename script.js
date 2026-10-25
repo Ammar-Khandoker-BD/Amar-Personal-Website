@@ -54,6 +54,26 @@
     });
   }
 
+
+  // Thin top progress indicator; scheduled per frame to keep scrolling smooth.
+  const progressBar = document.querySelector(".scroll-progress");
+  let scrollFramePending = false;
+  const updateScrollProgress = () => {
+    if (!progressBar) return;
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = scrollable > 0 ? Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100)) : 0;
+    document.documentElement.style.setProperty("--scroll-progress", percent.toFixed(2) + "%");
+    scrollFramePending = false;
+  };
+  window.addEventListener("scroll", () => {
+    if (!scrollFramePending) {
+      scrollFramePending = true;
+      window.requestAnimationFrame(updateScrollProgress);
+    }
+  }, { passive: true });
+  window.addEventListener("resize", updateScrollProgress, { passive: true });
+  updateScrollProgress();
+
   const revealItems = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
