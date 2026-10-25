@@ -353,3 +353,98 @@ footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: s
  .job-responsibilities{font-size:.84rem;gap:7px}
  .timeline .job{padding-bottom:30px}
 }
+
+
+/* Enhanced on-scroll motion: cinematic reveal, staggered cards, and active nav */
+.js .reveal {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0) scale(.986);
+  filter: blur(2px);
+  transition:
+    opacity .72s cubic-bezier(.2,.7,.2,1),
+    transform .72s cubic-bezier(.2,.7,.2,1),
+    filter .72s ease,
+    border-color .28s ease,
+    box-shadow .28s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js .reveal.show {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js .section-head.show .eyebrow {
+  animation: underlineDraw .55s ease-out both;
+}
+.js .section-head.show h2 {
+  animation: contentLift .65s .08s ease-out both;
+}
+.js .section-head.show .section-intro {
+  animation: contentLift .65s .16s ease-out both;
+}
+.js .section-head.show .certificate-source-links {
+  animation: contentLift .65s .23s ease-out both;
+}
+.js .job.show,
+.js .skill-card.show,
+.js .project.show {
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js .certificate-card.show {
+  animation: none;
+}
+#menu a.nav-active::after {
+  transform-origin: left center;
+  animation: underlineDraw .28s ease-out both;
+}
+.section-head h2 span {
+  background: linear-gradient(100deg, var(--green) 0%, #b4ffd9 48%, var(--green) 90%);
+  background-size: 220% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.section-head.show h2 span {
+  animation: gradientTextFlow 5.5s ease-in-out 1;
+}
+@keyframes gradientTextFlow {
+  0% { background-position: 0% center; }
+  100% { background-position: 100% center; }
+}
+.project, .certificate-card, .skill-card, .job {
+  backface-visibility: hidden;
+}
+.project:hover, .certificate-card:hover, .skill-card:hover {
+  transform: translateY(-4px);
+  transition-timing-function: cubic-bezier(.2,.75,.25,1);
+}
+@media (max-width: 760px) {
+  .js .reveal {
+    transform: translate3d(0, 18px, 0);
+    filter: none;
+    transition-duration: .55s;
+  }
+  .js .reveal.show {
+    transform: translate3d(0, 0, 0);
+    filter: none;
+  }
+  .js .section-head.show h2 span { animation-duration: 3.5s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal, .js .reveal.show {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  .js .section-head.show .eyebrow,
+  .js .section-head.show h2,
+  .js .section-head.show .section-intro,
+  .js .section-head.show .certificate-source-links,
+  #menu a.nav-active::after,
+  .section-head.show h2 span {
+    animation: none !important;
+  }
+}
