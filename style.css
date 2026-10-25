@@ -210,3 +210,16 @@ footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: s
  .certificate-meta{justify-content:flex-start;gap:14px}
 }
 @media(prefers-reduced-motion:reduce){.certificate-card,.cert-source-link{transition:none}.certificate-card:hover{transform:none}}
+
+
+/* Certificate source links and verified metadata details */
+.certificate-source-links{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px}
+.certificate-detail,.certificate-skills{margin:0;color:#b7bbc3;font-size:.76rem;line-height:1.55;overflow-wrap:anywhere}
+.certificate-detail strong,.certificate-skills strong{color:#e3c06c;font-weight:650}
+.certificate-card .certificate-meta{margin-top:auto}
+.certificate-card .certificate-meta time{color:#e6b84d}
+.certificate-card .certificate-meta span{color:#adb0b8}
+@media(max-width:760px){
+ .certificate-source-links{align-items:stretch;flex-direction:column}
+ .certificate-source-links .cert-source-link{width:fit-content;max-width:100%}
+}
