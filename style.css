@@ -561,17 +561,25 @@ footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: s
   box-shadow: 0 0 0 1px rgba(79,226,160,.32), 0 0 24px rgba(79,226,160,.09);
   transition: filter .14s ease, box-shadow .14s ease;
 }
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .cursor-aura { display: flex; }
-}
+/* JavaScript enables this only when the device has a fine hover-capable pointer. */
+html.has-pointer-aura .cursor-aura { display: flex; }
 @media (hover: none), (pointer: coarse) {
-  .cursor-aura { display: none !important; }
   a, button, .project, .certificate-card, .skill-card, .job, .featured-credential {
-    -webkit-tap-highlight-color: rgba(79,226,160,.12);
+    -webkit-tap-highlight-color: rgba(79,226,160,.18);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cursor-aura { display: none !important; transition: none !important; }
+  .cursor-aura { transition: none !important; }
   .touch-ripple { animation: none !important; display: none !important; }
   .touch-feedback { transition: none !important; }
+}
+
+/* Active states work even if touch animation JavaScript is unavailable. */
+a:active, button:active, .project:active, .certificate-card:active,
+.skill-card:active, .contact-links a:active {
+  filter: brightness(1.12);
+}
+.project:active, .certificate-card:active, .skill-card:active {
+  border-color: rgba(79,226,160,.7);
+  box-shadow: 0 0 0 1px rgba(79,226,160,.2), 0 0 22px rgba(79,226,160,.09);
 }
