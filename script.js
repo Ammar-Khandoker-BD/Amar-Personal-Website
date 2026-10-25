@@ -120,4 +120,51 @@
     }, { rootMargin: "-28% 0px -58% 0px", threshold: 0 });
     observedSections.forEach((section) => sectionObserver.observe(section));
   }
+
+  // Mouse/pen halo: follow the pointer and expand on interactive elements.
+  const cursorAura = document.querySelector(".cursor-aura");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const motionAllowed = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const interactiveSelector = "a, button, .project, .certificate-card, .skill-card, .job, .featured-credential, .contact-box";
+
+  if (cursorAura && finePointer && motionAllowed) {
+    document.addEventListener("pointermove", (event) => {
+      if (event.pointerType !== "mouse" && event.pointerType !== "pen") return;
+      cursorAura.style.transform = `translate3d(${event.clientX}px,${event.clientY}px,0) translate(-50%,-50%)`;
+      cursorAura.classList.add("is-visible");
+    }, { passive: true });
+
+    document.addEventListener("pointerover", (event) => {
+      if (event.pointerType !== "mouse" && event.pointerType !== "pen") return;
+      const target = event.target instanceof Element ? event.target.closest(interactiveSelector) : null;
+      cursorAura.classList.toggle("is-active", Boolean(target));
+    }, { passive: true });
+
+    document.addEventListener("pointerout", (event) => {
+      if (event.relatedTarget == null) cursorAura.classList.remove("is-visible", "is-active");
+    }, { passive: true });
+
+    window.addEventListener("blur", () => cursorAura.classList.remove("is-visible", "is-active"));
+  }
+
+  // Touch/pen taps get a small ripple and short visual feedback without blocking clicks.
+  document.addEventListener("pointerdown", (event) => {
+    if (event.pointerType !== "touch" && event.pointerType !== "pen") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const ripple = document.createElement("span");
+    ripple.className = "touch-ripple";
+    ripple.setAttribute("aria-hidden", "true");
+    ripple.style.left = event.clientX + "px";
+    ripple.style.top = event.clientY + "px";
+    document.body.appendChild(ripple);
+    ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+
+    const target = event.target instanceof Element ? event.target.closest(interactiveSelector) : null;
+    if (target) {
+      target.classList.add("touch-feedback");
+      window.setTimeout(() => target.classList.remove("touch-feedback"), 190);
+    }
+  }, { passive: true });
+
 })();
