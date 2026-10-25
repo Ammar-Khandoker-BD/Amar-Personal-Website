@@ -337,3 +337,19 @@ footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: s
   .btn.primary:hover::after, .nav-cta:hover::after { animation: none !important; }
   .project::after { transition: none; }
 }
+
+
+/* Company-wise work responsibilities based on CV */
+.job-content{min-width:0}
+.job-meta{margin:.22rem 0 .7rem;color:#9098a3;font-size:.76rem;line-height:1.5}
+.job-responsibilities{display:grid;gap:8px;margin:.7rem 0 0;padding-left:1.15rem;color:#c9cbd0;font-size:.86rem;line-height:1.62}
+.job-responsibilities li{padding-left:.18rem}
+.job-responsibilities li::marker{color:var(--green)}
+.job-responsibilities li strong{color:#f5f5f5}
+.job h3{line-height:1.4}
+.timeline .job{padding-bottom:38px}
+@media(max-width:760px){
+ .job-meta{font-size:.74rem}
+ .job-responsibilities{font-size:.84rem;gap:7px}
+ .timeline .job{padding-bottom:30px}
+}
