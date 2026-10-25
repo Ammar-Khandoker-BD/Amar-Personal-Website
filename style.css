@@ -172,3 +172,41 @@ footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: s
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Certificate showcase copied from the source portfolio */
+.section-intro{max-width:720px;margin:16px 0 22px;color:var(--muted);font-size:.96rem}
+.cert-source-link{display:inline-flex;align-items:center;gap:9px;padding:10px 15px;border:1px solid rgba(255,191,35,.36);border-radius:999px;color:var(--yellow);font-size:.82rem;font-weight:650;transition:background .2s ease,border-color .2s ease}
+.cert-source-link:hover{background:rgba(255,191,35,.08);border-color:rgba(255,191,35,.7)}
+.certificates{background:linear-gradient(180deg,#242528 0%,#202125 100%)}
+.certificate-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.certificate-card{display:flex;min-width:0;flex-direction:column;gap:12px;padding:22px;border:1px solid rgba(255,191,35,.20);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));transition:transform .22s ease,border-color .22s ease,background .22s ease}
+.certificate-card:hover{transform:translateY(-3px);border-color:rgba(255,191,35,.55);background:linear-gradient(145deg,rgba(255,191,35,.055),rgba(255,255,255,.012))}
+.certificate-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.certificate-category{display:inline-flex;max-width:calc(100% - 38px);align-items:center;padding:5px 9px;border:1px solid rgba(255,191,35,.18);border-radius:999px;color:#f3c45b;font-size:.66rem;font-weight:650;letter-spacing:.015em}
+.certificate-number{color:rgba(255,255,255,.42);font-size:.72rem;font-weight:700;letter-spacing:.08em}
+.certificate-card h3{margin:1px 0 0;color:#f5f4f0;font:600 1.05rem/1.4 'Space Grotesk',Inter,sans-serif;overflow-wrap:anywhere}
+.certificate-provider{margin:0;color:#aeb0b5;font-size:.82rem}
+.certificate-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:7px;margin-top:auto;padding-top:8px;color:#e6b84d;font-size:.76rem}
+.certificate-meta time{display:inline-flex;align-items:center;gap:7px}
+.certificate-meta time::before{content:"";display:inline-block;width:7px;height:7px;border:1.5px solid currentColor;border-radius:2px}
+.certificate-meta span{color:#a7a8ad;font-size:.7rem}
+.featured-credential{display:grid;grid-template-columns:46px minmax(0,1fr) auto;align-items:center;gap:18px;margin:0 0 20px;padding:23px;border:1px solid rgba(79,226,160,.38);border-radius:18px;background:linear-gradient(100deg,rgba(79,226,160,.085),rgba(255,255,255,.018) 65%)}
+.featured-credential-icon{display:grid;width:42px;height:42px;place-items:center;border-radius:13px;background:rgba(79,226,160,.12);color:var(--green);font-size:1.5rem;font-weight:800}
+.featured-credential-copy{min-width:0}
+.featured-label{color:var(--green);font-size:.65rem;font-weight:800;letter-spacing:.12em}
+.featured-credential h3{margin:5px 0;color:#f7f8f7;font:600 1.1rem/1.4 'Space Grotesk',Inter,sans-serif}
+.featured-credential p{margin:0;color:#bdc3c1;font-size:.83rem}
+.featured-credential-link{display:inline-flex;align-items:center;justify-content:center;padding:9px 12px;border:1px solid rgba(79,226,160,.32);border-radius:999px;color:var(--green);font-size:.76rem;font-weight:650;white-space:nowrap}
+.featured-credential-link:hover{background:rgba(79,226,160,.08)}
+.certificate-note{max-width:900px;margin:22px 0 0;color:#92959d;font-size:.75rem;line-height:1.6}
+@media(max-width:1050px){.certificate-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+ .certificate-grid{grid-template-columns:1fr;gap:12px}
+ .certificate-card{padding:19px}
+ .certificate-card h3{font-size:1rem}
+ .featured-credential{grid-template-columns:40px minmax(0,1fr);gap:13px;padding:18px}
+ .featured-credential-icon{width:38px;height:38px}
+ .featured-credential-link{grid-column:2;justify-self:start}
+ .certificate-meta{justify-content:flex-start;gap:14px}
+}
+@media(prefers-reduced-motion:reduce){.certificate-card,.cert-source-link{transition:none}.certificate-card:hover{transform:none}}
