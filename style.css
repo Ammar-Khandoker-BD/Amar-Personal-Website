@@ -634,3 +634,16 @@ a:active, button:active, .project:active, .certificate-card:active,
   .project-action,.project-secondary-links a { transition: none; }
   .project-action:hover { transform: none; }
 }
+
+
+/* Skills clarity and learning roadmap */
+.learning-roadmap { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 18px; padding: clamp(22px,3.5vw,34px); border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(110deg,rgba(79,226,160,.075),rgba(255,255,255,.018)); }
+.learning-kicker { margin: 0 0 10px; color: var(--green); font-size: .68rem; font-weight: 800; letter-spacing: .14em; }
+.learning-roadmap-copy h3 { margin: 0 0 7px; font: 600 clamp(1.2rem,2.6vw,1.65rem)/1.2 'Space Grotesk',Inter,sans-serif; letter-spacing: -.025em; }
+.learning-roadmap-copy p:last-child { margin: 0; color: var(--muted); font-size: .82rem; }
+.learning-roadmap-tags { display: flex; flex: 0 0 auto; flex-wrap: wrap; gap: 9px; }
+.learning-roadmap-tags span { display: flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid rgba(79,226,160,.23); border-radius: 10px; background: rgba(79,226,160,.06); font-size: .8rem; font-weight: 700; }
+.learning-roadmap-tags small { color: #aeb2b9; font-size: .65rem; font-weight: 500; }
+@media (max-width: 650px) {
+  .learning-roadmap { align-items: flex-start; flex-direction: column; }
+}
