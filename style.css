@@ -674,3 +674,26 @@ a:active, button:active, .project:active, .certificate-card:active,
   .certificate-tools { grid-template-columns: 1fr; }
   .certificate-result-count { white-space: normal; }
 }
+
+
+/* Career impact metrics */
+.impact-section { margin-top: 34px; }
+.impact-caption { margin: 0 0 13px; color: var(--green); font-size: .68rem; font-weight: 800; letter-spacing: .14em; }
+.impact-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 11px; }
+.impact-card { display: flex; min-height: 130px; flex-direction: column; justify-content: center; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.025); }
+.impact-card strong { color: var(--green); font: 700 clamp(1.8rem,3.2vw,2.45rem)/1 'Space Grotesk',Inter,sans-serif; letter-spacing: -.05em; }
+.impact-card span { margin-top: 9px; color: #f1f2f3; font-size: .78rem; font-weight: 700; line-height: 1.4; }
+.impact-card small { margin-top: 5px; color: #a7aab1; font-size: .68rem; }
+.contact-primary-actions { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 11px; margin-top: 27px; }
+.contact-primary { display: flex; min-height: 90px; flex-direction: column; justify-content: center; gap: 7px; padding: 15px 18px; border: 1px solid var(--line); border-radius: 13px; background: rgba(255,255,255,.035); transition: transform .2s ease,border-color .2s ease,background .2s ease; }
+.contact-primary:hover { transform: translateY(-3px); border-color: rgba(79,226,160,.45); background: rgba(79,226,160,.055); }
+.contact-action-label { color: var(--green); font-size: .64rem; font-weight: 800; letter-spacing: .13em; }
+.contact-primary strong { font: 600 1rem 'Space Grotesk',Inter,sans-serif; }
+.contact-links { margin-top: 18px; }
+@media (max-width: 900px) {
+  .impact-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 650px) {
+  .contact-primary-actions { grid-template-columns: 1fr; }
+  .contact-primary { min-height: 74px; }
+}
