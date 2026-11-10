@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="profile-hero.webp" fetchpriority="high">
-<link rel="stylesheet" href="style.css?v=15">
+<link rel="stylesheet" href="style.css?v=16">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ammar Khandoker Portfolio">
 <meta property="og:title" content="Ammar Khandoker | HR, Operations & Digital Portfolio">
@@ -208,6 +208,18 @@
     </div>
     <a class="featured-credential-link" href="https://www.freelancers.gov.bd/verify/a1c55d0c-8ea9-42d1-b819-821d74dab442-sh-1768654010-y-71ec91545d5f23dc2711da0539b750e76e30eab4-a-m-075db42fdd41b6d2b6b2b7f4c71e271a6e29244b" target="_blank" rel="noopener noreferrer">Verify credential ↗</a>
   </article>
+  <div class="certificate-tools" hidden>
+    <div class="certificate-search-wrap">
+      <label class="sr-only" for="certificate-search">Search certificates</label>
+      <input id="certificate-search" type="search" placeholder="Search title, provider, skills or credential ID..." autocomplete="off">
+    </div>
+    <div class="certificate-filter-wrap">
+      <label class="sr-only" for="certificate-category-filter">Filter by category</label>
+      <select id="certificate-category-filter"><option value="all">All categories</option></select>
+    </div>
+    <p id="certificate-result-count" class="certificate-result-count" aria-live="polite">Showing all credentials</p>
+  </div>
+  <p id="certificate-empty" class="certificate-empty" hidden>No certificates match your search. Try another keyword or category.</p>
   <div class="certificate-grid">
     <article class="certificate-card reveal">
       <div class="certificate-card-head">
@@ -923,6 +935,6 @@
     </a>
   </nav>
 </footer>
-<script src="script.js?v=7" defer></script>
+<script src="script.js?v=8" defer></script>
 </body>
 </html>
