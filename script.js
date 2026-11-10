@@ -192,4 +192,65 @@
       if (touch) addTouchFeedback(touch.clientX, touch.clientY, event.target);
     }, { passive: true });
   }
+
+  // Search and filter the course certificate cards by title, provider, skills, ID or category.
+  const certificateGrid = document.querySelector("#certificates .certificate-grid");
+  const certificateCards = certificateGrid
+    ? Array.from(certificateGrid.querySelectorAll(".certificate-card"))
+    : [];
+  const certificateTools = document.querySelector(".certificate-tools");
+  const certificateSearch = document.getElementById("certificate-search");
+  const certificateCategory = document.getElementById("certificate-category-filter");
+  const certificateCount = document.getElementById("certificate-result-count");
+  const certificateEmpty = document.getElementById("certificate-empty");
+
+  if (
+    certificateCards.length &&
+    certificateTools &&
+    certificateSearch &&
+    certificateCategory &&
+    certificateCount &&
+    certificateEmpty
+  ) {
+    const certificateCategories = Array.from(
+      new Set(
+        certificateCards
+          .map((card) => card.querySelector(".certificate-category")?.textContent.trim())
+          .filter(Boolean)
+      )
+    ).sort((a, b) => a.localeCompare(b));
+
+    certificateCategories.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category;
+      option.textContent = category;
+      certificateCategory.appendChild(option);
+    });
+
+    certificateTools.hidden = false;
+
+    const updateCertificateResults = () => {
+      const query = certificateSearch.value.trim().toLocaleLowerCase();
+      const selectedCategory = certificateCategory.value;
+      let visibleCount = 0;
+
+      certificateCards.forEach((card) => {
+        const category = card.querySelector(".certificate-category")?.textContent.trim() || "";
+        const searchableText = card.textContent.toLocaleLowerCase();
+        const matchesQuery = !query || searchableText.includes(query);
+        const matchesCategory = selectedCategory === "all" || category === selectedCategory;
+        const isVisible = matchesQuery && matchesCategory;
+        card.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      certificateCount.textContent = `Showing ${visibleCount} of ${certificateCards.length} course credentials`;
+      certificateEmpty.hidden = visibleCount !== 0;
+    };
+
+    certificateSearch.addEventListener("input", updateCertificateResults);
+    certificateCategory.addEventListener("change", updateCertificateResults);
+    updateCertificateResults();
+  }
+
 })();
