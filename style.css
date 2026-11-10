@@ -647,3 +647,14 @@ a:active, button:active, .project:active, .certificate-card:active,
 @media (max-width: 650px) {
   .learning-roadmap { align-items: flex-start; flex-direction: column; }
 }
+
+
+/* Accessible expandable experience details */
+.job-highlights { margin-bottom: 12px; }
+.job-details { margin-top: 4px; border-top: 1px solid var(--line); }
+.job-details summary { display: inline-flex; align-items: center; gap: 9px; padding: 11px 0 3px; color: var(--green); cursor: pointer; font-size: .77rem; font-weight: 700; list-style: none; }
+.job-details summary::-webkit-details-marker { display: none; }
+.job-details summary::before { content: "+"; display: inline-grid; width: 19px; height: 19px; place-items: center; border: 1px solid rgba(79,226,160,.35); border-radius: 6px; font-size: .9rem; line-height: 1; }
+.job-details[open] summary::before { content: "−"; }
+.job-details summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 4px; }
+.job-details .job-responsibilities { margin-top: 10px; }
